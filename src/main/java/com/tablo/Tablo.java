@@ -29,9 +29,9 @@ public class Tablo {
         List<Config> configuration = new ConfigParser(configFile).parseFile();
 
         HTTPClient a = new HTTPClient();
-        try {
-            comms = new SerialComms("/dev/ttyACM0");
-            comms.startComms();
+//        try {
+//            comms = new SerialComms("/dev/ttyACM0");
+//            comms.startComms();
 
             while (true) {
                 for (Config config : configuration) {
@@ -40,7 +40,8 @@ public class Tablo {
                     System.out.println(regexP.outcome());
                     IMessageHandler messageHandler = new MessageHandler(regexP);
 
-                    comms.write(messageHandler.getSerial());
+                    log.info(messageHandler.getSerial());
+//                    comms.write(messageHandler.getSerial());
                 }
 
                 try {
@@ -49,8 +50,8 @@ public class Tablo {
                     e.printStackTrace();
                 }
             }
-        } catch (InterruptedException e) {
-            log.error(" ==>> PROBLEMS WITH SERIAL COMMUNICATIONS: " + e.getMessage(), e);
-        }
+//        } catch (InterruptedException e) {
+//            log.error(" ==>> PROBLEMS WITH SERIAL COMMUNICATIONS: " + e.getMessage(), e);
+//        }
     }
 }

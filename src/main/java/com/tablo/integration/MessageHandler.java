@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class MessageHandler implements IMessageHandler {
 
-    IRegexProcessor regexProcessor;
-    String serial;
+    private IRegexProcessor regexProcessor;
+    private String serial;
 
     public MessageHandler(IRegexProcessor regexProcessor) {
         this.regexProcessor = regexProcessor;
