@@ -2,24 +2,29 @@ package com.tablo.regex;
 
 import com.tablo.conf.StatusMapping;
 import com.tablo.http.Response;
-
-import static com.tablo.conf.StatusMapping.Outcome;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.tablo.conf.StatusMapping.Outcome;
+
 /**
  * Created by tyordanov on 22/06/16.
  */
 public class RegexProcessor implements IRegexProcessor {
+    /**
+     * The <code>Logger</code> to be used.
+     */
+    private static Logger log = Logger.getLogger(IRegexProcessor.class);
 
-    final int REGEX_GROUP_RESULT = 2;
-    final String KEYWORD_FAIL = "FAILURE";
-    final String KEYWORD_WARN = "WARNING";
-    final String KEYWORD_PASS = "SUCCESS";
-    Outcome outcome;
-    Response response;
+    private final int REGEX_GROUP_RESULT = 2;
+    private final String KEYWORD_FAIL = "FAILURE";
+    private final String KEYWORD_WARN = "WARNING";
+    private final String KEYWORD_PASS = "SUCCESS";
+    private Outcome outcome;
+    private Response response;
 
     public RegexProcessor(Response response) {
         this.response = response;
@@ -72,13 +77,10 @@ public class RegexProcessor implements IRegexProcessor {
             try {
                 result = matcher.group(REGEX_GROUP_RESULT);
             } catch (Throwable ex) {
-                // ex.printStackTrace();
-            } finally {
-                // System.out.println(result);
-                return result;
+                log.error(ex.getMessage(), ex);
             }
         }
-        System.out.println(result);
+        log.info(result);
         return result;
     }
 }

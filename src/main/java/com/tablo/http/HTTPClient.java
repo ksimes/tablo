@@ -1,7 +1,6 @@
 package com.tablo.http;
 
 import com.tablo.conf.Config;
-import com.tablo.conf.ConfigMock;
 import com.tablo.integration.IMessageHandler;
 import com.tablo.integration.MessageHandler;
 import com.tablo.conf.ConfigParser;

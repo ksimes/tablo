@@ -10,10 +10,10 @@ public class StatusMapping {
         SUCCESS, WARNING, FAILURE;
     }
 
-    public StatusMapping(){}
+    private List<String> match;
+    private Outcome outcome;
 
-    public void setPin(int pin) {
-        this.pin = pin;
+    public StatusMapping() {
     }
 
     public void setMatch(List<String> match) {
@@ -24,14 +24,9 @@ public class StatusMapping {
         this.outcome = outcome;
     }
 
-    public StatusMapping(int pin, List<String> match, Outcome outcome) {
-        this.pin = pin;
+    public StatusMapping(List<String> match, Outcome outcome) {
         this.match = match;
         this.outcome = outcome;
-    }
-
-    public int pin() {
-        return pin;
     }
 
     public List<String> match() {
@@ -41,8 +36,4 @@ public class StatusMapping {
     public Outcome outcome() {
         return outcome;
     }
-
-    private int pin;
-    private List<String> match;
-    private Outcome outcome;
 }

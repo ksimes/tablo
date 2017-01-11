@@ -41,13 +41,13 @@ public class Tablo {
                     IMessageHandler messageHandler = new MessageHandler(regexP);
 
                     log.info(messageHandler.getSerial());
-//                    comms.write(messageHandler.getSerial());
+//                    comms.write(messageHandler.getSerial() + "\n");
                 }
 
                 try {
                     TimeUnit.SECONDS.sleep(2L);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(), e);
                 }
             }
 //        } catch (InterruptedException e) {

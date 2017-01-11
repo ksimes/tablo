@@ -21,20 +21,13 @@ public class MessageHandler implements IMessageHandler {
 
     @Override
     public MessageHandler generateSerialString() {
-        String serialProtocolStr = "%%PINS 1 2 3 S ";
+        String serialProtocolStr = "{%%SETSTATE ";
         StatusMapping.Outcome outcome = regexProcessor.outcome();
         Config config = regexProcessor.response().config();
-        List<StatusMapping> mappings = config.mappings();
-        StatusMapping desiredMapping = null;
-        for(StatusMapping mapping : mappings){
-            if(mapping.outcome() == outcome){
-                desiredMapping = mapping;
-                break;
-            }
-        }
-        int desiredPin = desiredMapping.pin();
-        serialProtocolStr+=desiredPin;
-        serial = serialProtocolStr;
+        int ledToDisplay = config.led();
+
+        serialProtocolStr += ledToDisplay + " " + outcome.name();
+        serial = serialProtocolStr + " }";
         return this;
     }
 

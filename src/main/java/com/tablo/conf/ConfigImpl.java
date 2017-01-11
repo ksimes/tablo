@@ -8,17 +8,13 @@ import java.util.List;
  */
 public class ConfigImpl implements Config{
     private String url;
-    private ArrayList<Integer> pins;
+    private List<StatusMapping> mappings;
     private String resultRegex;
     private int pollingIntervalMillis;
-    private List<StatusMapping> mappings;
+    private int led;
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public void setPins(ArrayList<Integer> pins) {
-        this.pins = pins;
     }
 
     public void setResultRegex(String resultRegex) {
@@ -27,6 +23,10 @@ public class ConfigImpl implements Config{
 
     public void setPollingIntervalMillis(int pollingIntervalMillis) {
         this.pollingIntervalMillis = pollingIntervalMillis;
+    }
+
+    public void setled(int led) {
+        this.led = led;
     }
 
     public void setMappings(List<StatusMapping> mappings) {
@@ -51,6 +51,11 @@ public class ConfigImpl implements Config{
     @Override
     public List<StatusMapping> mappings() {
         return mappings;
+    }
+
+    @Override
+    public int led() {
+        return led;
     }
 
     @Override

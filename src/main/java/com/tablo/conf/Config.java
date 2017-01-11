@@ -9,5 +9,6 @@ public interface Config {
     String URL();
     String resultRegex();
     int pollingIntervalMillis();
+    int led();
     List<StatusMapping> mappings();
 }
