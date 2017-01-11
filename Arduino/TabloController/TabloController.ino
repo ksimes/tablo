@@ -158,7 +158,7 @@ int getNumber(String data)
   return result;
 }
 
-/* Set one in a group of LEDs to high value */
+/* Set an RBG LED to an appropriate colour */
 /* Message format  '{%%SETSTATE 1 WARNING }' excluding quotes and ending with a cr
 */
 boolean processStatus()
