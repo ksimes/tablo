@@ -29,17 +29,17 @@ public class HTTPClient {
         return new ResponseImpl(config, response);
     }
 
-    public static void main (String[] args) {
-        HTTPClient a = new HTTPClient();
-        List<Config> c = new ConfigParser("resources/tabloJenkins.json").parseFile();
-        for (Config config : c) {
-            Response r = a.get(config);
-            System.out.println(r.response());
-            System.out.println("Parsing...");
-            IRegexProcessor regexP = new RegexProcessor(r);
-            System.out.println(regexP.outcome());
-            IMessageHandler messageHandler = new MessageHandler(regexP);
-            System.out.println(messageHandler.getSerial());
-        }
-    }
+//    public static void main (String[] args) {
+//        HTTPClient a = new HTTPClient();
+//        List<Config> c = new ConfigParser("resources/tabloJenkins.json").parseFile();
+//        for (Config config : c) {
+//            Response r = a.get(config);
+//            System.out.println(r.response());
+//            System.out.println("Parsing...");
+//            IRegexProcessor regexP = new RegexProcessor(r);
+//            System.out.println(regexP.outcome());
+//            IMessageHandler messageHandler = new MessageHandler(regexP);
+//            System.out.println(messageHandler.getSerial());
+//        }
+//    }
 }
