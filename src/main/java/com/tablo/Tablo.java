@@ -37,7 +37,7 @@ public class Tablo {
                 for (Config config : configuration) {
                     Response r = a.get(config);
                     IRegexProcessor regexP = new RegexProcessor(r);
-                    System.out.println(regexP.outcome());
+                    log.info(regexP.outcome());
                     IMessageHandler messageHandler = new MessageHandler(regexP);
 
                     log.info(messageHandler.getSerial());
