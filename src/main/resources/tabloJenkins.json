@@ -1,35 +1,9 @@
 [
   {
-    "url": "http://192.168.1.9:8080/job/Pass/lastBuild/api/json",
+    "url": "http://192.168.9.104:8080/job/Test%20Job%205/lastBuild/api/json",
     "resultRegex": "(.*)(\\\"result\\\"\\s*:\\s*\\\"([A-Za-z0-9]+)\\\")(.*)",
     "pollingIntervalMillis": 15000,
     "led": 1,
-    "mappings": [
-      {
-        "match": [
-          "FAILURE"
-        ],
-        "outcome": "FAILURE"
-      },
-      {
-        "match": [
-          "SUCCESS"
-        ],
-        "outcome": "SUCCESS"
-      },
-      {
-        "match": [
-          "WARNING"
-        ],
-        "outcome": "WARNING"
-      }
-    ]
-  },
-  {
-    "url": "http://192.168.1.9:8080/job/Fail/lastBuild/api/json",
-    "resultRegex": "(.*)(\\\"result\\\"\\s*:\\s*\\\"([A-Za-z0-9]+)\\\")(.*)",
-    "pollingIntervalMillis": 15000,
-    "led": 2,
     "mappings": [
       {
         "match": [
