@@ -26,7 +26,8 @@ libraryDependencies ++= Seq(
   "javax.ws.rs" % "javax.ws.rs-api" % "2.0.1",
   "org.jboss.resteasy" % "resteasy-client" % "3.0.17.Final",
   "org.codehaus.jackson" % "jackson-smile" % "1.9.13",
-  "org.codehaus.jackson" % "jackson-mapper-asl" % "1.9.13"
+  "org.codehaus.jackson" % "jackson-mapper-asl" % "1.9.13",
+  "org.jboss.resteasy" % "resteasy-jackson-provider" % "3.0.10.Final"
 )
 
 mainClass in assembly := Some("com.tablo.Tablo")
@@ -36,4 +37,9 @@ assemblyMergeStrategy in assembly := {
   case x =>
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
+}
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.last
 }
