@@ -43,8 +43,11 @@ public class Tablo {
                     log.info(regexP.outcome());
                     IMessageHandler messageHandler = new MessageHandler(regexP);
 
-                    log.info(messageHandler.getSerial());
+                    log.info("Sending to serial ["  + messageHandler.getSerial() + "]");
                     comms.write(messageHandler.getSerial() + "\n");
+
+                    String message = comms.messages().take();
+                    log.info("From serial ["  + message + "]");
                 }
 
                 try {

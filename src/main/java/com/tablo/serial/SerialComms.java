@@ -17,7 +17,7 @@ public class SerialComms {
     private final Serial serial;
     private String comPort = Serial.DEFAULT_COM_PORT;
     private String message;
-    private ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
+    private ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(200);
 
     public SerialComms(String port) throws InterruptedException {
 
