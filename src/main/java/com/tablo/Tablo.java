@@ -25,12 +25,15 @@ public class Tablo {
     private static SerialComms comms;
 
     public static void main(String[] args) {
-        final String configFile = "tabloJenkins.json";
+        String configFile = "tabloJenkins.json";
+        if (args.length > 0) {
+            configFile = args[0];
+        }
         List<Config> configuration = new ConfigParser(configFile).parseFile();
 
         HTTPClient a = new HTTPClient();
         try {
-            comms = new SerialComms("/dev/ttyACM0");
+            comms = new SerialComms("/dev/ttyUSB0");
             comms.startComms();
 
             while (true) {

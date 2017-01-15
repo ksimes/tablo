@@ -22,11 +22,12 @@ lazy val root = (project in file(".")).
 libraryDependencies ++= Seq(
   "com.pi4j" % "pi4j-core" % "1.0",
   "com.pi4j" % "pi4j-device" % "1.0",
-  "log4j" % "log4j" % "1.2.16",
+  "log4j" % "log4j" % "1.2.17",
   "javax.ws.rs" % "javax.ws.rs-api" % "2.0.1",
   "org.jboss.resteasy" % "resteasy-client" % "3.0.17.Final",
   "org.codehaus.jackson" % "jackson-smile" % "1.9.13",
-  "org.codehaus.jackson" % "jackson-mapper-asl" % "1.9.13"
+  "org.codehaus.jackson" % "jackson-mapper-asl" % "1.9.13",
+  "org.jboss.resteasy" % "resteasy-jackson-provider" % "3.0.10.Final"
 )
 
 mainClass in assembly := Some("com.tablo.Tablo")
@@ -36,4 +37,9 @@ assemblyMergeStrategy in assembly := {
   case x =>
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
+}
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.last
 }
