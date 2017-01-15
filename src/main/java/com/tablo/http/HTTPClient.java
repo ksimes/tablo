@@ -1,11 +1,13 @@
 package com.tablo.http;
 
+import com.tablo.Tablo;
 import com.tablo.conf.Config;
 import com.tablo.integration.IMessageHandler;
 import com.tablo.integration.MessageHandler;
 import com.tablo.conf.ConfigParser;
 import com.tablo.regex.IRegexProcessor;
 import com.tablo.regex.RegexProcessor;
+import org.apache.log4j.Logger;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -19,12 +21,17 @@ import java.util.List;
  * Created by alec on 22/06/16.
  */
 public class HTTPClient {
+    /**
+     * The <code>Logger</code> to be used.
+     */
+    private static Logger log = Logger.getLogger(Tablo.class);
     private ResteasyClient client;
     public HTTPClient() {
         client = new ResteasyClientBuilder().build();
     }
 
     public Response get(final Config config) {
+        log.info("target [" + config.URL() + "]");
         ResteasyWebTarget target = client.target(config.URL());
         javax.ws.rs.core.Response response = target.request(MediaType.APPLICATION_JSON).get();
         String value = response.toString();
