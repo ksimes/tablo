@@ -112,10 +112,16 @@
 #define Walnut 0x663300
 
 boolean finished = false;
+
 // message array to hold incoming data
-String msgs[10] = { "", "", "", "", "", "", "", "", "", ""};
+#define BUFFER_SIZE 10
+#define MAX_MSG_SIZE 100
+
+String msgs[BUFFER_SIZE] = { "", "", "", "", "", "", "", "", "", ""};
 boolean msgAvailable = false;  // whether the msg is complete
 int lastMsg = 0;
+int msgCount = 0;
+
 const String MSG_HEADER = "{%%SETSTATE ";
 const int MSG_HEADER_SIZE = MSG_HEADER.length();
 
@@ -126,8 +132,8 @@ void setup()
   Tlc.init();
   Serial.begin(19200);
 
-  for (int i = 0; i < 10; i++) {
-    msgs[i].reserve(20);
+  for (int i = 0; i < BUFFER_SIZE; i++) {
+    msgs[i].reserve(MAX_MSG_SIZE);
   }
 
   clearLEDs();
@@ -168,6 +174,7 @@ boolean processStatus()
   if (msgAvailable) {
     int msgPointer = lastMsg;
 
+    // Find the last msg sent. Note : There may be multiple messages waiting.
     if (msgPointer == 0) {
       msgPointer = 9;
     }
@@ -175,9 +182,15 @@ boolean processStatus()
       msgPointer --;
     }
 
+    msgCount --;
+
+    if (msgCount == 0) {
+      msgAvailable = false;
+    }
+
     String msg = msgs[msgPointer];
 
-    if (( msg.length() > MSG_HEADER_SIZE) && msg.startsWith(MSG_HEADER)) {
+    if (( msg.length() > MSG_HEADER_SIZE) && msg.startsWith(MSG_HEADER) && msg.endsWith("}")) {
       String data = msg.substring(MSG_HEADER_SIZE);
 
       String numb = data.substring(0, data.indexOf(" ") + 1);
@@ -241,7 +254,6 @@ void loop()
 {
   if (!finished)
   {
-    clearLEDs();
     delay(DELAY);
 
     if (processStatus()) {
@@ -270,12 +282,17 @@ void serialEvent() {
     // so the main loop can do something about it:
     if (inChar == '\n') {
       msgAvailable = true;
-      //      Serial.print(msgs[lastMsg]);
+      Serial.println("echo [" + msgs[lastMsg] + "]");
 
       lastMsg += 1;
       if (lastMsg == 10) {
         lastMsg = 0;
       }
+
+      // Clean the next buffer so there is no corruption from old messages.
+      msgs[lastMsg] = "";
+
+      msgCount ++;
     }
     else {
       // else add it to the inputString:
