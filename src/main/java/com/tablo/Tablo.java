@@ -43,8 +43,10 @@ public class Tablo {
                     log.info("Sending to serial ["  + messageHandler.getSerial() + "]");
                     comms.write(messageHandler.getSerial() + "\n");
 
-                    String message = comms.messages().take();
-                    log.info("From serial ["  + message + "]");
+                    if(! comms.messages().isEmpty()) {
+                        String message = comms.messages().take();
+                        log.info("From serial [" + message + "] count = " + comms.messages().size());
+                    }
                 }
 
                 try {
