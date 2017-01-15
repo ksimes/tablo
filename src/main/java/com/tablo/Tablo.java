@@ -24,11 +24,8 @@ public class Tablo {
     private static Logger log = Logger.getLogger(Tablo.class);
     private static SerialComms comms;
 
-    public static void main(String[] args) {
-        String configFile = "tabloJenkins.json";
-        if (args.length > 0) {
-            configFile = args[0];
-        }
+    static void processConfig(String configFile)
+    {
         List<Config> configuration = new ConfigParser(configFile).parseFile();
 
         HTTPClient a = new HTTPClient();
@@ -58,6 +55,25 @@ public class Tablo {
             }
         } catch (InterruptedException e) {
             log.error(" ==>> PROBLEMS WITH SERIAL COMMUNICATIONS: " + e.getMessage(), e);
+        }
+    }
+
+    public static void main(String[] programArgs) {
+        for (int i = 0; i < programArgs.length; i++) {
+            String argument = programArgs[i];
+            if (argument.startsWith("-f")) {
+                switch (argument) {
+                    case "-f":
+                    case "-file":
+                        if (i < programArgs.length) {
+                            processConfig(programArgs[++i]);
+                        } else {
+                            String msg = "-file requires a filename";
+                            log.error(msg);
+                        }
+                        break;
+                }
+            }
         }
     }
 }
